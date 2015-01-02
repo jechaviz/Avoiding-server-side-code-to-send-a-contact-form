@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Contact form</title>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	</head>
+	<body>
+	<p id="message-form-sent" class="hidden">Thank you for getting in contact with us!</p>
+	<form style="width:50%" role="form">
+		<div class="form-group">
+			<label for="contact-name">Name</label>
+			<input type="text" class="form-control" id="contact-name">
+		</div>
+		<div class="form-group">
+			<label for="contact-email">Email</label>
+			<input type="email" class="form-control" id="contact-email">
+		</div>
+		<div class="form-group">
+			<label for="contact-comment">Comment</label>
+			<textarea id="contact-comment" class="form-control" rows="3"></textarea>
+		</div>
+		<button type="submit" class="btn btn-success">Submit</button>
+	</form>
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Bootstrap  JS-->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('form').submit(function(e){
+				e.preventDefault();
+				var name = $('#contact-name').val();
+				var email = $('#contact-email').val();
+				var comment = $('#contact-comment').val();	
+				$.ajax({
+					url: 'https://docs.google.com/forms/d/1Vto1X-jg-3ZRva-0hnT6hSpafKSZpbeATABIYhofNbo/formResponse',
+					data: {'entry.464322812': name, 'entry.1066405291':email, 'entry.708364442':comment },
+					type: 'POST',
+					dataType: 'xml'
+				});	
+				$('#contact-name').val('');
+				$('#contact-email').val('');
+				$('#contact-comment').val('');
+				$('#message-form-sent').removeClass('hidden');
+			});
+		});
+	</script>
+	</body>
+</html>
